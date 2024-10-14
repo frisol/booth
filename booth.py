@@ -5,3 +5,5 @@ GPIO.setmode(GPIO.BCM)
 
 # Clean up GPIO settings
 GPIO.cleanup()
+
+# Just another comment
