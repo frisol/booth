@@ -4,7 +4,7 @@
 
 # Import the necessary libraries
 # import RPi.GPIO as GPIO
-# import picamera
+import picamera
 import os
 import glob
 import time
@@ -199,3 +199,57 @@ def start_photobooth():
         pixel_width = 500 # maximum width of animated gif on tumblr
         pixel_height = config.monitor_h * pixel_width // config.monitor_w
         camera.resolution = (pixel_width, pixel_height) # set camera resolution to low res
+
+################################# Begin Step 2 #################################
+    
+    print ("Taking pics")
+
+    now = time.strftime("%Y-%m-%d-%H-%M-%S") #get the current date and time for the start of the filename
+	
+    if config.capture_count_pics:
+        try: # take the photos
+            for i in range(1,total_pics+1):
+                show_image(real_path + "/pose" + str(i) + ".jpg")
+                time.sleep(capture_delay) # pause in-between shots
+                clear_screen()
+                camera.hflip = True # preview a mirror image
+                if config.flash_enabled:
+                    #GPIO.output(flash_pin, True)
+                    print("flash on")
+                camera.start_preview(
+				resolution=(config.monitor_w, config.monitor_h)) # start preview at low res but the right ratio
+                time.sleep(2) #warm up camera
+                #GPIO.output(led_pin,True) #turn on the LED
+                filename = config.file_path + now + '-0' + str(i) + '.jpg'
+                camera.hflip = True # flip back when taking photo
+                camera.capture(filename)
+                #GPIO.output(flash_pin, False)
+                print(filename)
+                #GPIO.output(led_pin,False) #turn off the LED
+                camera.stop_preview()
+				# show_image(real_path + "/pose" + str(i) + ".jpg")
+				# time.sleep(capture_delay) # pause in-between shots
+				# clear_screen()
+                if i == total_pics+1:
+                    break
+        finally:
+            camera.close()
+            # GPIO.output(flash_pin, False)
+    else:
+        camera.start_preview(
+			resolution=(config.monitor_w, config.monitor_h)) # start preview at low res but the right ratio
+        time.sleep(2) #warm up camera
+		
+        try: #take the photos
+            for i, filename in enumerate(
+					camera.capture_continuous(config.file_path + now + '-' + '{counter:02d}.jpg')):
+            # GPIO.output(led_pin,True) #turn on the LED
+                print(filename)
+                time.sleep(capture_delay) # pause in-between shots
+                # GPIO.output(led_pin,False) #turn off the LED
+                if i == total_pics-1:
+                    break
+        finally:
+            camera.stop_preview()
+            camera.close()
+		
