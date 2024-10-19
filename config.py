@@ -1,19 +1,8 @@
-# Tumblr Setup
-# Replace the values with your information
-# OAuth keys can be generated from https://api.tumblr.com/console/calls/user/info
-consumer_key='n5omocaTOPugTHTGf4zNF5PwYOmMx9l6p02FiJwRdTui9KX2X4' #replace with your key
-consumer_secret='yQ9DARL4Nxo01cWqvRq0z8M5mixr2dxn0t853qqMQmCnu5MMF0' #replace with your secret code
-oath_token='6H1ARUabuzz1p6OkIicy3v1ZPQl9OrwlICF06tDb9CNL7CMOEy' #replace with your oath token
-oath_secret='34Lzp01xQONoFVX7uuPGF7vM11Wenpjyb6XK8c6JFpoITm6pkJ' #replace with your oath secret code
-tumblr_blog = 'nye2020' # replace with your tumblr account name without .tumblr.com
-tagsForTumblr = "nye2020" # change to tags you want, separated with commas
-
 #Config settings to change behavior of photo booth
 monitor_w = 800    # width of the display monitor
 monitor_h = 600    # height of the display monitor
 # monitor_w = 1600    # width of the display monitor
 # monitor_h = 1200    # height of the display monitor
-
 
 
 file_path = 'C:/Users/benhasl/OneDrive/Documents/Photobooth/Code/pics/' # path to save images
