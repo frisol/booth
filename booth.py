@@ -4,6 +4,7 @@
 
 # Import the necessary libraries
 # import RPi.GPIO as GPIO
+# import picamera
 import os
 import glob
 import time
@@ -56,3 +57,145 @@ replay_cycles = 1 # how many times to show each photo on-screen after taking
 ### Other Config ###
 ####################
 real_path = os.path.dirname(os.path.realpath(__file__))
+
+#####################
+# initialize pygame #
+#####################
+pygame.init()
+pygame.display.set_mode((config.monitor_w, config.monitor_h))
+screen = pygame.display.get_surface()
+pygame.display.set_caption('Photo Booth Pics')
+pygame.mouse.set_visible(False) #hide the mouse cursor
+pygame.display.toggle_fullscreen()
+
+#################
+### Functions ###
+#################
+
+# clean up running programs as needed when main program exits
+def cleanup():
+  print('Ended abruptly')
+  pygame.quit()
+  # GPIO.cleanup()
+atexit.register(cleanup)
+
+# A function to handle keyboard/mouse/device input events    
+def input(events):
+    for event in events:  # Hit the ESC key to quit the slideshow.
+        if (event.type == QUIT or
+            (event.type == KEYDOWN and event.key == K_ESCAPE)):
+            pygame.quit()
+
+#delete files in folder
+def clear_pics(channel):
+	files = glob.glob(config.file_path + '*')
+	for f in files:
+		os.remove(f) 
+	#light the lights in series to show completed
+	print ("Deleted previous pics")
+	for x in range(0, 3): #blink light
+		GPIO.output(led_pin,True); 
+		sleep(0.25)
+		GPIO.output(led_pin,False);
+		sleep(0.25)
+          
+# set variables to properly display the image on screen at right ratio
+def set_demensions(img_w, img_h):
+	# Note this only works when in booting in desktop mode. 
+	# When running in terminal, the size is not correct (it displays small). Why?
+
+    # connect to global vars
+    global transform_y, transform_x, offset_y, offset_x
+
+    # based on output screen resolution, calculate how to display
+    ratio_h = (config.monitor_w * img_h) / img_w 
+
+    if (ratio_h < config.monitor_h):
+        #Use horizontal black bars
+        #print "horizontal black bars"
+        transform_y = ratio_h
+        transform_x = config.monitor_w
+        offset_y = (config.monitor_h - ratio_h) / 2
+        offset_x = 0
+    elif (ratio_h > config.monitor_h):
+        #Use vertical black bars
+        #print "vertical black bars"
+        transform_x = (config.monitor_h * img_w) / img_h
+        transform_y = config.monitor_h
+        offset_x = (config.monitor_w - transform_x) / 2
+        offset_y = 0
+    else:
+        #No need for black bars as photo ratio equals screen ratio
+        #print "no black bars"
+        transform_x = config.monitor_w
+        transform_y = config.monitor_h
+        offset_y = offset_x = 0
+
+    # uncomment these lines to troubleshoot screen ratios
+#     print str(img_w) + " x " + str(img_h)
+#     print "ratio_h: "+ str(ratio_h)
+#     print "transform_x: "+ str(transform_x)
+#     print "transform_y: "+ str(transform_y)
+#     print "offset_y: "+ str(offset_y)
+#     print "offset_x: "+ str(offset_x)
+
+# display one image on screen
+def show_image(image_path, angle, img_size):
+
+	# clear the screen
+	screen.fill( (0,0,0) )
+
+	# load the image
+	img = pygame.image.load(image_path)
+	img = img.convert() 
+
+	# set pixel dimensions based on image
+	set_demensions(img.get_width(), img.get_height())
+
+	# rescale the image to fit the current display
+	img = pygame.transform.scale(img, (int(transform_x), int(transfrom_y)))
+	img = pygame.transform.rotate(img, angle)
+	screen.blit(img,(offset_x + img_size, offset_y + img_size))
+	pygame.display.flip()
+
+# display a blank screen
+def clear_screen():
+	screen.fill( (0,0,0) )
+	pygame.display.flip()
+     
+# display a group of images
+def display_pics(jpg_group, rotate, img_scale):
+	for i in range(0, replay_cycles): #show pics a few times
+		for i in range(1, total_pics+1): #show each pic
+			show_image(config.file_path + jpg_group + "-0" + str(i) + ".jpg", rotate * random.randint(-5,5), img_scale)
+			time.sleep(replay_delay) # pause
+                  
+# define the photo taking function for when the big button is pressed 
+def start_photobooth(): 
+    input(pygame.event.get()) # press escape to exit pygame. Then press ctrl-c to exit python.
+
+	################################# Begin Step 1 #################################
+	
+    print ("Get Ready")
+	# GPIO.output(led_pin,False);
+	## show_image(real_path + "/instructions.png")
+    show_image(config.pose_path + random.choice(os.listdir(config.pose_path)), 0, 0)
+    sleep(prep_delay)
+	
+	# clear the screen
+    clear_screen()
+    camera = picamera.PiCamera()
+    camera.vflip = False
+    camera.hflip = True # flip for preview, showing users a mirror image
+	# camera.saturation = -100 # comment out this line if you want color images
+    camera.iso = config.camera_iso
+	
+    pixel_width = 0 # local variable declaration
+    pixel_height = 0 # local variable declaration
+	
+    if config.hi_res_pics:
+        camera.resolution = (high_res_w, high_res_h) # set camera resolution to high res
+    else:
+        pixel_width = 500 # maximum width of animated gif on tumblr
+        pixel_height = config.monitor_h * pixel_width // config.monitor_w
+        camera.resolution = (pixel_width, pixel_height) # set camera resolution to low res
