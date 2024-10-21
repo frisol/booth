@@ -4,7 +4,7 @@
 
 # Import the necessary libraries
 # import RPi.GPIO as GPIO
-import picamera
+# import picamera
 import os
 import glob
 import time
