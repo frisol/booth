@@ -1,0 +1,21 @@
+# This just runs Python with the Version parameter to test if the running is working
+
+name: Python test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    - name: Test with python version
+      run: |
+        python --version
