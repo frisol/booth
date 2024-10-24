@@ -19,6 +19,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Test with python version
 
-      run: |
-        python --version
+#      run: |
+#       python --version
         
