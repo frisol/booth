@@ -26,10 +26,10 @@ jobs:
       run: |
         git config --global myapp.destination /home/ben/booth # Set your destination path here
 
-#    - name: Copy files to booth
-#      run: |
-#        DEST_DIR=$(git config --global myapp.destination)
-#        mkdir -p "$DEST_DIR"
+    - name: Copy files to booth
+      run: |
+        DEST_DIR=$(git config --global myapp.destination)
+        mkdir -p "$DEST_DIR"
 
 
         
