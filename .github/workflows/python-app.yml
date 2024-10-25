@@ -26,10 +26,14 @@ jobs:
       run: |
         git config --global myapp.destination /home/ben/booth # Set your destination path here
 
-    - name: Copy files to booth
+    - name: Make destination folder
       run: |
         DEST_DIR=$(git config --global myapp.destination)
         mkdir -p "$DEST_DIR"
+
+    - name: Copy from safe directory to destination folder
+      run: |
+#        cp -r $/*.py "$DEST_DIR/"
 
 
         
