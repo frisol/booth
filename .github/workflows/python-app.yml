@@ -13,12 +13,17 @@ permissions:
 
 jobs:
   build:
-
     runs-on: self-hosted
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test with python version
 
+    steps:
+    - name: Check out repository
+    - uses: actions/checkout@v2
+
+    - name: Set destination directory
       run: |
-        python --version
+        git config --global myapp.destination /home/ben/booth # Set your destination path here
+
+    - name: Copy files to booth
+        DEST_DIR=$(git config --global myapp.destination)
+        mkdir -p "$DEST_DIR"
         
