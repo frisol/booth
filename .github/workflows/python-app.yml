@@ -33,7 +33,8 @@ jobs:
 
     - name: Copy from safe directory to destination folder
       run: |
-#        cp -r $/*.py "$DEST_DIR/"
+        SAFE_DIR=$(git config --global safe.directory)
+        cp -r "$SAFE_DIR/*.py" "$DEST_DIR/"
 
 
         
