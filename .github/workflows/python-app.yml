@@ -14,12 +14,14 @@ permissions:
 jobs:
   build:
 
-    steps:
-    - name: Check out repository
-    - uses: actions/checkout@v2
-
     runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check out repository
 
+      run: |
+       python --version
+       
 #    - name: Set destination directory
 #      run: |
 #        git config --global myapp.destination /home/ben/booth # Set your destination path here
@@ -28,4 +30,7 @@ jobs:
 #      run: |
 #        DEST_DIR=$(git config --global myapp.destination)
 #        mkdir -p "$DEST_DIR"
+
+
+        
         
