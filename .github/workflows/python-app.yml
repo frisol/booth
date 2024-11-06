@@ -33,7 +33,7 @@ jobs:
 
     - name: Copy from safe directory to destination folder
       run: |
-        cp -r /home/ben/actions-runner/_work/booth/booth/*.py $DEST_DIR/
+        cp -r /home/ben/actions-runner/_work/booth/booth/*.py /home/ben/booth #$DEST_DIR/
 
 
         
