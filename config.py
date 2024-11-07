@@ -5,10 +5,12 @@ monitor_h = 600    # height of the display monitor
 # monitor_h = 1200    # height of the display monitor
 
 
-file_path = 'C:/Users/benhasl/OneDrive/Documents/Photobooth/Code/pics/' # path to save images
-display_path = 'C:/Users/benhasl/OneDrive/Documents/Photobooth/Code/display_pics/' # path to save the blur images to
-pose_path = 'C:/Users/benhasl/OneDrive/Documents/Photobooth/Code/strike_a_pose/' # path to save the blur images to
+file_path = './pics/' # path to save images
+display_path = './display_pics/' # path to save the blur images to
+pose_path = './pose_pics/' # path to save the blur images to
+
 clear_on_startup = False # True will clear previously stored photos as the program launches. False will leave all previous photos.
+
 # debounce = 0.4 # how long to debounce the button. Add more time if the button triggers too many times.
 debounce = 1
 post_online = False # True to upload images. False to store locally only.
