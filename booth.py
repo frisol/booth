@@ -265,4 +265,5 @@ def start_photobooth():
         finally:
             camera.stop_preview()
             camera.close()
-		
+
+create_pics_folder(config.file_path)
