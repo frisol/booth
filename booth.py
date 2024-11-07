@@ -68,7 +68,7 @@ pygame.display.set_mode((config.monitor_w, config.monitor_h))
 screen = pygame.display.get_surface()
 pygame.display.set_caption('Photo Booth Pics')
 pygame.mouse.set_visible(False) #hide the mouse cursor
-pygame.display.toggle_fullscreen()
+# pygame.display.toggle_fullscreen()
 
 #################
 ### Functions ###
