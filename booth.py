@@ -88,6 +88,14 @@ def input(events):
             (event.type == KEYDOWN and event.key == K_ESCAPE)):
             pygame.quit()
 
+#create folder
+def create_pics_folder(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+        print ("Directory created")
+    else:
+        print ("Directory already exists")
+
 #delete files in folder
 def clear_pics(channel):
 	files = glob.glob(config.file_path + '*')
@@ -174,6 +182,11 @@ def display_pics(jpg_group, rotate, img_scale):
                   
 # define the photo taking function for when the big button is pressed 
 def start_photobooth(): 
+
+    	if not os.path.exists(config.file_path):
+            os.makedirs(config.file_path)
+            print ("Directory created")
+
     input(pygame.event.get()) # press escape to exit pygame. Then press ctrl-c to exit python.
 
 	################################# Begin Step 1 #################################
