@@ -267,3 +267,5 @@ def start_photobooth():
             camera.close()
 
 create_pics_folder(config.file_path)
+create_pics_folder(config.display_path)
+create_pics_folder(config.pose_path)
