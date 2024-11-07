@@ -183,9 +183,9 @@ def display_pics(jpg_group, rotate, img_scale):
 # define the photo taking function for when the big button is pressed 
 def start_photobooth(): 
 
-    	if not os.path.exists(config.file_path):
-            os.makedirs(config.file_path)
-            print ("Directory created")
+    if not os.path.exists(config.file_path):
+        os.makedirs(config.file_path)
+        print ("Directory created")
 
     input(pygame.event.get()) # press escape to exit pygame. Then press ctrl-c to exit python.
 
