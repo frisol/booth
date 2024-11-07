@@ -3,8 +3,8 @@
 # Description: This script is used to control the photo booth. It will take photos and save them to a folder on the Raspberry Pi.
 
 # Import the necessary libraries
-# import RPi.GPIO as GPIO
-# import picamera
+import RPi.GPIO as GPIO
+import picamera
 
 
 import os
@@ -20,10 +20,10 @@ import random
 import config # this is the config python file config.py
 
 # Set up GPIO mode
-# GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BCM)
 
 # Clean up GPIO settings
-# GPIO.cleanup()
+GPIO.cleanup()
 
 ########################
 ### Variables Config ###
