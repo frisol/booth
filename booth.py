@@ -21,8 +21,7 @@ import config # this is the config python file config.py
 # Set up GPIO mode
 GPIO.setmode(GPIO.BCM)
 
-# Clean up GPIO settings
-GPIO.cleanup()
+
 
 ########################
 ### Variables Config ###
@@ -305,3 +304,6 @@ while True:
 	GPIO.wait_for_edge(btn_pin, GPIO.FALLING)
 	time.sleep(config.debounce) #debounce
 	start_photobooth()
+     
+# Clean up GPIO settings
+GPIO.cleanup()
