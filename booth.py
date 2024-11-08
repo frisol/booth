@@ -303,7 +303,7 @@ while True:
      ## random_file=random.choice(os.listdir("Folder_Destination"))
     GPIO.output(led_pin,True); #turn on the light showing users they can push the button
     input(pygame.event.get()) # press escape to exit pygame. Then press ctrl-c to exit python.
-    GPIO.setup(btn_pin, GPIO.OUT)
+    GPIO.setup(btn_pin, GPIO.IN)
     GPIO.wait_for_edge(btn_pin, GPIO.FALLING)
     time.sleep(config.debounce) #debounce
     start_photobooth()
