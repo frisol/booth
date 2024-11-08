@@ -22,7 +22,7 @@ import config # this is the config python file config.py
 GPIO.setmode(GPIO.BCM)
 
 # Clean up GPIO settings
-# GPIO.cleanup()
+GPIO.cleanup()
 
 ########################
 ### Variables Config ###
@@ -191,7 +191,7 @@ def start_photobooth():
 	################################# Begin Step 1 #################################
 	
     print ("Get Ready")
-	# GPIO.output(led_pin,False);
+	GPIO.output(led_pin,False);
 	## show_image(real_path + "/instructions.png")
     show_image(config.pose_path + random.choice(os.listdir(config.pose_path)), 0, 0)
     sleep(prep_delay)
@@ -228,18 +228,18 @@ def start_photobooth():
                 clear_screen()
                 camera.hflip = True # preview a mirror image
                 if config.flash_enabled:
-                    #GPIO.output(flash_pin, True)
+                    GPIO.output(flash_pin, True)
                     print("flash on")
                 camera.start_preview(
 				resolution=(config.monitor_w, config.monitor_h)) # start preview at low res but the right ratio
                 time.sleep(2) #warm up camera
-                #GPIO.output(led_pin,True) #turn on the LED
+                GPIO.output(led_pin,True) #turn on the LED
                 filename = config.file_path + now + '-0' + str(i) + '.jpg'
                 camera.hflip = True # flip back when taking photo
                 camera.capture(filename)
-                #GPIO.output(flash_pin, False)
+                GPIO.output(flash_pin, False)
                 print(filename)
-                #GPIO.output(led_pin,False) #turn off the LED
+                GPIO.output(led_pin,False) #turn off the LED
                 camera.stop_preview()
 				# show_image(real_path + "/pose" + str(i) + ".jpg")
 				# time.sleep(capture_delay) # pause in-between shots
@@ -257,10 +257,10 @@ def start_photobooth():
         try: #take the photos
             for i, filename in enumerate(
 					camera.capture_continuous(config.file_path + now + '-' + '{counter:02d}.jpg')):
-            # GPIO.output(led_pin,True) #turn on the LED
+                GPIO.output(led_pin,True) #turn on the LED
                 print(filename)
                 time.sleep(capture_delay) # pause in-between shots
-                # GPIO.output(led_pin,False) #turn off the LED
+                GPIO.output(led_pin,False) #turn off the LED
                 if i == total_pics-1:
                     break
         finally:
