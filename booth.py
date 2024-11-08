@@ -223,7 +223,7 @@ def start_photobooth():
     if config.capture_count_pics:
         try: # take the photos
             for i in range(1,total_pics+1):
-                show_image(real_path + config.pose_path + "pose" + str(i) + ".jpg",0,0)
+                show_image(real_path + "/pose_pics/pose" + str(i) + ".jpg",0,0)
                 time.sleep(capture_delay) # pause in-between shots
                 clear_screen()
                 camera.hflip = True # preview a mirror image
