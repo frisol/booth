@@ -4,8 +4,7 @@
 
 # Import the necessary libraries
 import RPi.GPIO as GPIO
-import picamera
-
+from picamera2 import PiCamera2
 
 import os
 import glob
@@ -199,7 +198,7 @@ def start_photobooth():
 	
 	# clear the screen
     clear_screen()
-    camera = picamera.PiCamera()
+    camera = PiCamera2()
     camera.vflip = False
     camera.hflip = True # flip for preview, showing users a mirror image
 	# camera.saturation = -100 # comment out this line if you want color images
