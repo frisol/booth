@@ -17,6 +17,7 @@ import socket
 import pygame
 import random
 import config # this is the config python file config.py
+from pygame.locals import QUIT, KEYDOWN, K_ESCAPE
 
 # Set up GPIO mode
 GPIO.setmode(GPIO.BCM)
