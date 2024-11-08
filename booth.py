@@ -191,7 +191,7 @@ def start_photobooth():
 	################################# Begin Step 1 #################################
 	
     print ("Get Ready")
-	GPIO.output(led_pin,False);
+    GPIO.output(led_pin,False);
 	## show_image(real_path + "/instructions.png")
     show_image(config.pose_path + random.choice(os.listdir(config.pose_path)), 0, 0)
     sleep(prep_delay)
