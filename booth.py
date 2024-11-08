@@ -4,7 +4,7 @@
 
 # Import the necessary libraries
 import RPi.GPIO as GPIO
-from picamera2 import PiCamera2
+from picamera2 import Picamera2
 
 import os
 import glob
