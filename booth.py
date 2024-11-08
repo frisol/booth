@@ -287,9 +287,10 @@ if config.clear_on_startup:
 
 print ("Photo booth app running...")
 for x in range(0, 5): #blink light to show the app is running
-	GPIO.output(led_pin,True)
-	sleep(0.25)
-	GPIO.output(led_pin,False)
+	GPIO.setup(led_pin, GPIO.OUT)
+    GPIO.output(led_pin,True)
+    sleep(0.25)
+    GPIO.output(led_pin,False)
 	sleep(0.25)
 
 ## show_image(real_path + "/intro.png");
