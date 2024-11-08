@@ -22,7 +22,7 @@ import config # this is the config python file config.py
 GPIO.setmode(GPIO.BCM)
 
 # Clean up GPIO settings
-GPIO.cleanup()
+# GPIO.cleanup()
 
 ########################
 ### Variables Config ###
